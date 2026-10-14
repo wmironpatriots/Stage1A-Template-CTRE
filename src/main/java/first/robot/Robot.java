@@ -6,6 +6,14 @@
 package first.robot;
 
 import org.wpilib.framework.OpModeRobot;
+import org.wpilib.hardware.bus.CANPort;
+
+import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 /**
  * The methods in this class are called automatically as described in the OpModeRobot documentation.
@@ -20,7 +28,24 @@ public class Robot extends OpModeRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  public Robot() {}
+
+  private final TalonFX leftLeader = new TalonFX(0, new CANBus(CANPort.CAN_S0));
+  private final TalonFX leftFollower = new TalonFX(1, new CANBus(CANPort.CAN_S0));
+  private final TalonFX rightLeader = new TalonFX(2, new CANBus(CANPort.CAN_S0));
+  private final TalonFX rightFollower = new TalonFX(3, new CANBus(CANPort.CAN_S0));
+
+  public Robot() {
+    TalonFXConfiguration leftConfig = new TalonFXConfiguration();
+    leftConfig.MotorOutput.withInverted(InvertedValue.Clockwise_Positive);
+    leftLeader.getConfigurator().apply(leftConfig);
+    leftFollower.getConfigurator().apply(leftConfig);
+    leftFollower.setControl(new Follower(leftLeader.getDeviceID(), MotorAlignmentValue.Aligned));
+    TalonFXConfiguration rightConfig = new TalonFXConfiguration();
+    rightConfig.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
+    rightLeader.getConfigurator().apply(rightConfig);
+    rightFollower.getConfigurator().apply(rightConfig);
+    rightFollower.setControl(new Follower(rightLeader.getDeviceID(), MotorAlignmentValue.Aligned));
+  }
 
   @Override
   public void simulationPeriodic() {}
