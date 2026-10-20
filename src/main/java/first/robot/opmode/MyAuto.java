@@ -43,5 +43,5 @@ public class MyAuto extends PeriodicOpMode {
       robot.drivetrain.arcadeDrive(0.0, 0.0);
     }
   }
-  /*im verity, o algo, somehting like that i think */
+  /*debate me. im dean withers. o algo. */
 }
