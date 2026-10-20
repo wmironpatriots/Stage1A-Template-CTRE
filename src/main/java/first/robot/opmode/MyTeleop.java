@@ -6,7 +6,6 @@
 package first.robot.opmode;
 
 import first.robot.Robot;
-
 import org.wpilib.driverstation.XboxController;
 import org.wpilib.opmode.PeriodicOpMode;
 import org.wpilib.opmode.Teleop;
@@ -24,6 +23,6 @@ public class MyTeleop extends PeriodicOpMode {
   @Override
   public void periodic() {
     /* Called periodically (set time interval) while the robot is enabled. */
-      robot.drivetrain.arcadeDrive(-xboxController.getLeftY(), xboxController.getRightX());
+    robot.drivetrain.arcadeDrive(-xboxController.getLeftY(), xboxController.getRightX());
   }
 }
