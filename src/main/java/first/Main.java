@@ -24,3 +24,4 @@ public final class Main {
     RobotBase.startRobot(first.robot.Robot::new);
   }
 }
+              
