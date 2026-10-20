@@ -24,5 +24,22 @@ public class MyTeleop extends PeriodicOpMode {
   public void periodic() {
     /* Called periodically (set time interval) while the robot is enabled. */
     robot.drivetrain.arcadeDrive(-xboxController.getLeftY(), xboxController.getRightX());
+    if (xboxController.getRightBumperButton()) {
+      // launch
+      robot.intakeLauncher.setThrottle(0.9);
+      robot.feeder.setThrottle(0.75);
+    } else if (xboxController.getLeftBumperButton()) {
+      // intake
+      robot.intakeLauncher.setThrottle(0.8);
+      robot.feeder.setThrottle(-1.0);
+    } else if (xboxController.getAButton()) {
+      // outake
+      robot.intakeLauncher.setThrottle(-0.8);
+      robot.feeder.setThrottle(1.0);
+    } else {
+      // stop
+      robot.intakeLauncher.setThrottle(0.0);
+      robot.feeder.setThrottle(0.0);
+    }
   }
 }

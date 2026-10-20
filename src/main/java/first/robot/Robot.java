@@ -9,7 +9,6 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import first.robot.simulation.DrivetrainSim;
 import first.robot.simulation.FuelSim;
 import first.robot.simulation.SingleFlywheelSim;
-
 import org.wpilib.drive.DifferentialDrive;
 import org.wpilib.framework.OpModeRobot;
 import org.wpilib.hardware.bus.CANPort;
@@ -39,7 +38,7 @@ public class Robot extends OpModeRobot {
 
   private final DrivetrainSim drivetrainSim = new DrivetrainSim(leftLeader, rightLeader);
   private final SingleFlywheelSim intakeLauncherSim =
-    SingleFlywheelSim.forIntakeLauncher(intakeLauncher);
+      SingleFlywheelSim.forIntakeLauncher(intakeLauncher);
   private final SingleFlywheelSim feederSim = SingleFlywheelSim.forFeeder(feeder);
 
   /**
@@ -65,6 +64,8 @@ public class Robot extends OpModeRobot {
   @Override
   public void simulationPeriodic() {
     drivetrainSim.periodic();
+    intakeLauncherSim.periodic();
+    feederSim.periodic();
     FuelSim.periodic();
   }
 }
